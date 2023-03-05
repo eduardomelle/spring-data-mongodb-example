@@ -6,7 +6,6 @@ spring:
     name: spring-data-mongodb-example
   data:
     mongodb:
-      #uri: mongodb+srv://eduardo:dvtrho44sf9B17dp@cluster0.zhcy8.mongodb.net/arquivo-processamento?retryWrites=true&w=majority
       host: '${MONGO_HOST}'
       database: '${MONGO_DB}'
       port: 27017
