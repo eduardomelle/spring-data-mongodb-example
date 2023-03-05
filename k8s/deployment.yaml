@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-data-mongodb-example-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-data-mongodb-example
+  template:
+    metadata:
+      labels:
+        app: spring-data-mongodb-example
+    spec:
+      containers:
+        - name: spring-data-mongodb-example-container
+          image: eduardomelle/spring-data-mongodb-example:v1
+          #resources:
+          #limits:
+          #memory: "128Mi"
+          #cpu: "500m"
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+          env:
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: password
+            - name: MONGO_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-configmap
+                  key: database
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-configmap
+                  key: host
