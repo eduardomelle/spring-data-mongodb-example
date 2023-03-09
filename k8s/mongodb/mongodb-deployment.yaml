@@ -31,3 +31,10 @@ spec:
                 secretKeyRef:
                   key: password
                   name: mongodb-secret
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongodb-persistent-storage
+      volumes:
+        - name: mongodb-persistent-storage
+          persistentVolumeClaim:
+            claimName: mongodb-pvc
